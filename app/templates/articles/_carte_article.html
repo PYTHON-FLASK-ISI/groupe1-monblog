@@ -1,0 +1,5 @@
+<article class="carte">
+        <h3><a href="{{ url_for('articles.detail', id=article.id) }}">{{ article.titre }}</a></h3>
+        <p>{{ article.contenu | truncate(20) }}</p>
+        <small>par <strong>{{ article.auteur.nom_complet }}</strong></small>
+</article>

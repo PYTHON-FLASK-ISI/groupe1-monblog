@@ -1,0 +1,52 @@
+:root {
+    --bleu: #0b5394;
+    --orange: #e69138;
+    --texte: #222;
+    --fond: #fafafa;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    margin: 0;
+    background: var(--fond);
+    color: var(--texte);
+}
+
+header {
+    background: var(--bleu);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+header a {
+    color: #fff;
+    margin-right: 1rem;
+    text-decoration: none;
+}
+
+main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.carte {
+    background: #fff;
+    border-left: 4px solid var(--orange);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    color: #666;
+}

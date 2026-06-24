@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block titre %}
+	Détail
+{% endblock %}
+
+{% block contenu %}
+    <article class="carte">
+    <h1><strong>Titre : </strong>{{ article.titre }}</h1>
+	<p><strong>Contenu : </strong>{{ article.contenu }}</p>
+    <small><strong>Auteur : </strong>{{ article.auteur.nom_complet }}</small>
+    </article>
+{% endblock %}
