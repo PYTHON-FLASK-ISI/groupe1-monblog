@@ -50,3 +50,83 @@ footer {
     padding: 1rem;
     color: #666;
 }
+
+.champ {
+    width: 100%;
+    max-width: 600px;
+    padding: 0.5rem;
+    margin: 0.25rem 0 1rem;
+}
+
+.btn {
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.flash {
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+.flash-success { background: #d4edda; color: #155724; }
+.flash-danger { background: #f8d7da; color: #721c24; }
+.flash-warning { background: #fff3cd; color: #856404; }
+.flash-info { background: #d1ecf1; color: #0c5460; }
+
+.pagination { margin-top: 1.5rem; }
+.pagination a { margin-right: 1rem; }
+
+.erreur {
+    color: #721c24;
+    font-size: 0.9rem;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+}
+
+.table th,
+.table td {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.tag {
+    display: inline-block;
+    background: var(--bleu);
+    color: #fff;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    margin-right: 0.25rem;
+    font-size: 0.85rem;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.nav-gauche,
+.nav-droite {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-droite {
+    margin-left: auto;
+}
+
+.nav-droite span {
+    color: white;
+    font-weight: bold;
+}

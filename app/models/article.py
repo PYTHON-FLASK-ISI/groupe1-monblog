@@ -22,7 +22,7 @@ class Article(BaseModel):
     publie = db.Column(db.Boolean, default=False)
     auteur_id = db.Column(db.Integer, db.ForeignKey('blog.users.id'), nullable=False)
     auteur = db.relationship('User', back_populates='articles')
-    commentaires = db.relationship('Commentaire', backref='articles',cascade="all, delete-orphan", lazy='dynamic')
+    commentaires = db.relationship('Commentaire', backref='articles',cascade="all, delete-orphan")
 
     def publier(self):
         if not self.titre:

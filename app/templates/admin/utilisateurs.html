@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+ 
+{% block titre %}Administration des utilisateurs{% endblock %}
+
+{% block contenu %}
+    <h1>Utilisateurs</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Rôle</th>
+            <th>Inscrit le</th>
+        </tr>
+        </thead>
+    <tbody>
+
+        {% for u in users %}
+            <tr>
+        <td>{{ u.email }}</td>
+        <td>{{ u.nom_complet }}</td>
+        <td>{{ u.role }}</td>
+        <td>{{ u.cree_le.strftime('%d/%m/%Y') }}</td>
+        </tr>
+    {% endfor %}
+
+
+    </tbody>
+    </table>
+{% endblock %}

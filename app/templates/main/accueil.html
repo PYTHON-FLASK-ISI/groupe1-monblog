@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+ 
+{% block titre %}Accueil — MonBlog{% endblock %}
+
+
+{% block contenu %}
+    <h1>Bienvenue sur mon Blog</h1>
+
+    <section>
+    <h2>Top 5 des auteurs (articles publiés)</h2>
+    <ol>
+        {%  for a , nb in top_auteurs %}
+        <li>{{ a.nom_complet }} -- {{ nb }} articles</li>
+        {%  else %}
+        <li>Aucun auteur pour le moment</li>
+        {% endfor %}
+    </ol>
+    </section>
+
+    <section>
+    <h2>3 Derniers articles</h2>
+    {% for article in derniers_articles %}
+        {% include 'articles/_carte_article.html' %}
+    {% endfor %}
+    </section>
+
+{% endblock %}

@@ -9,12 +9,30 @@
 </head>
 <body>
   <header>
-    <nav>
+    <nav class="navbar">
+        <div class="nav-gauche">
+            <img src="{{ url_for('static', filename='img/logo-isi.jpg') }}" alt="Logo MonBlog" width="80" height="120">
 
-        <img src="{{ url_for('static', filename='img/logo-isi.jpg') }}" alt="Logo MonBlog" width="100" height="120">
+            <a href="{{ url_for('main.accueil') }}">Accueil</a>
+            <a href="{{ url_for('articles.article') }}">Articles</a>
+            <a href="{{ url_for('produits.produits') }}">Produits</a>
+            {% if current_user.is_authenticated and current_user.est_admin %}
+            <a href="{{ url_for('admin.utilisateurs') }}">Utilisateurs</a>
+            {% endif %}
 
-        <a href="{{ url_for('articles.article') }}">Articles</a>
-        <a href="{{ url_for('produits.produits') }}">Produits</a>
+        </div>
+
+        <div class="nav-droite">
+            {% if current_user.is_authenticated %}
+            <span>Bonjour, {{ current_user.nom_complet }}</span>
+            <a href="{{ url_for('auth.deconnexion') }}"> Déconnexion</a>
+                {% else %}
+            <a href="{{ url_for('auth.connexion') }}">Connexion</a>
+            <a href="{{ url_for('auth.inscription') }}">Inscription</a>
+            {% endif %}
+
+        </div>
+
     </nav>
   </header>
   <main>

@@ -2,7 +2,8 @@ import click
 from flask.cli import with_appcontext
 
 from app import db
-from app.models import User, Article, Produit
+from app.models import User, Article, Produit, Commentaire
+
 
 @click.command("seed")
 @with_appcontext
@@ -12,9 +13,12 @@ def seed():
         return
 
     users=[
-        User(email="aminata@isi.sn", prenom="Aminata", nom="Diallo"),
-        User(email="moussa@isi.sn", prenom="Moussa", nom="Ndiaye"),
-        User(email="fatou@isi.sn", prenom="Fatou", nom="Sarr")
+        User(email="aminata@isi.sn", prenom="Aminata", nom="Diallo",role="admin"),
+        User(email="moussa@isi.sn", prenom="Moussa", nom="Ndiaye",role="auteur"),
+        User(email="fatou@isi.sn", prenom="Fatou", nom="Sarr", role="auteur"),
+        User(email="jean@isi.sn", prenom="Jean", nom="Diouf", role="utilisateur"),
+        User(email="marie@isi.sn", prenom="Marie", nom="Dioh", role="utilisateur"),
+        User(email="amadou@isi.sn", prenom="Amamdou", nom="Mbengue", role="utilisateur"),
     ]
     for u in users:
         u.definir_mdp("Password123")
@@ -48,6 +52,33 @@ def seed():
     for nom, prix, stock, proprietaire in produits_data:
         produit = Produit(nom=nom, prix=prix, stock=stock, proprietaire_id=proprietaire.id)
         db.session.add(produit)
+    db.session.flush()
+
+
+    comments_data = [
+        ("Excellent article pour débuter avec Flask.", users[3], 1),
+        ("Merci pour ces explications très claires.", users[4], 1),
+
+        ("Jinja2 est vraiment pratique pour les templates.", users[3], 2),
+        ("J'utilise déjà les filtres Jinja2 dans mes projets.", users[4], 2),
+
+        ("Les routes dynamiques m'ont toujours posé problème.", users[5], 3),
+        ("Exemple très pédagogique.", users[3], 3),
+
+        ("PostgreSQL est beaucoup plus robuste que SQLite.", users[5], 4),
+        ("Je vais essayer cette configuration.", users[3], 4),
+
+        ("Le CRUD est indispensable dans toute application web.", users[4], 6),
+
+        ("La pagination améliore beaucoup l'expérience utilisateur.", users[5], 7),
+
+        ("Les Blueprints rendent le projet plus maintenable.", users[4], 8),
+
+        ("La sécurité doit être prise en compte dès le début.", users[5], 10),
+        ("Très bon rappel sur les attaques CSRF.", users[3], 10)
+    ]
+    for contenu, auteur, article_id in comments_data:
+        db.session.add(Commentaire(contenu=contenu, auteur_id=auteur.id, article_id=article_id))
     db.session.flush()
 
     db.session.commit()

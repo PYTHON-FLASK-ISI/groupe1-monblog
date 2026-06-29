@@ -3,11 +3,32 @@
 {% block titre %}Accueil — MonBlog{% endblock %}
 
 {% block contenu %}
-  <h1>Bienvenue sur MonBlog</h1>
-  <p>Le blog technique des étudiants L2 GL de l'ISI.</p>
+    {% if current_user.est_auteur %}
+    <button class="btn"><a href="{{ url_for('articles.creer') }}">Nouvel article</a> </button>
+    {% endif %}
+
+    <form method="get" class="recherche">
+    <input type="search" name="mot" value="{{ mot }}" placeholder="Rechercher..." class="champ">
+    <input type="text" name="auteur" value="{{ auteur }}" placeholder="Auteur..." class="champ">
+    <button type="submit" class="btn">Filtrer</button>
+    </form>
 
 
     {% for article in articles %}
         {% include 'articles/_carte_article.html' %}
     {% endfor %}
+
+
+    {% if pagination %}
+    <nav class="pagination">
+        <button class="btn" >
+            <a href="{{ url_for('articles.article',page=pagination.prev_num, mot=mot, auteur=auteur) }}"><< Précédent</a>
+        </button>
+        Page {{ pagination.page }} / {{ pagination.pages }}
+        <button class="btn" >
+            <a href="{{ url_for('articles.article',page=pagination.next_num, mot=mot, auteur=auteur) }}"> Suivant >></a>
+        </button>
+    </nav>
+    {% endif %}
+
 {% endblock %}

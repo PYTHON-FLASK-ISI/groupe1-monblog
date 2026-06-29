@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block titre%}
+    {%  if article %}
+    Modifier
+    {% else %}
+    Nouvel
+    {% endif %}
+    article - Mon Blog
+{% endblock %}
+
+{% block contenu %}
+    <h1>
+     {%  if article %}
+    Modifier l'article
+    {% else %}
+    Nouvel article
+    {% endif %}
+    </h1>
+
+    <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.titre.label }}
+        {{ form.titre(class_="champ", placeholder="Titre de l'article") }}
+        {% for err in form.titre.errors %}
+        <p class="erreur"> {{ err }}</p>
+        {% endfor %}
+    </div>
+
+     <div>
+        {{ form.contenu.label }}
+        {{ form.contenu(class_="champ", rows=10) }}
+        {% for err in form.contenu.errors %}
+        <p class="erreur"> {{ err }}</p>
+         {% endfor %}
+    </div>
+
+    <div>
+        <label for="auteur_id" >Auteur</label>
+        <select name="auteur_id" id="auteur_id" class="champ">
+           {% for u in utilisateurs %}
+                <option value="{{ u.id }}"  {% if article and article.auteur_id == u.id %}selected{% endif %} >{{ u.nom_complet }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div>{{ form.publier() }} {{ form.publier.label }}</div>
+
+    {{ form.submit(class_="btn") }}
+
+    </form>
+
+
+    {% if article %}
+    <form method="post" action="{{ url_for('articles.supprimer', id=article.id) }}"
+    style="margin-top: 1rem" onsubmit="return confirm('Voulez-vous vraiment supprimer cet article ?');">
+    <button type="submit" class="btn btn-danger">Supprimer</button>
+    {% endif %}
+
+    </form>
+
+{% endblock %}

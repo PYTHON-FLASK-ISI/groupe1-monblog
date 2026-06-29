@@ -1,9 +1,11 @@
+from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app.models.base import BaseModel
-from app import db
+from app import db, login_manager
 
-class User(BaseModel):
+
+class User(UserMixin,BaseModel):
 
     __tablename__ = "users"
     __table_args__ = {'schema': 'blog'}
@@ -20,6 +22,7 @@ class User(BaseModel):
     nom = db.Column(db.String(50), nullable=False)
     _mdp_hash = db.Column('mdp_hash', db.Text, nullable=False)
     actif = db.Column(db.Boolean, default=False)
+    role= db.Column(db.String(50), default="utilisateur")
     articles = db.relationship('Article', back_populates='auteur', cascade="all, delete-orphan", lazy='dynamic')
 
 
@@ -27,7 +30,7 @@ class User(BaseModel):
         self._mdp_hash = generate_password_hash(mdp_clair)
 
     def verifier_mdp(self, mdp_clair:str) -> bool:
-        if self._mdp_hash :
+        if not self._mdp_hash :
             return False
         return check_password_hash(self._mdp_hash, mdp_clair)
 
@@ -41,5 +44,17 @@ class User(BaseModel):
     def nom_complet(self):
         return f"{self.prenom} {self.nom}".strip()
 
+    @property
+    def est_admin(self)->bool:
+        return self.role == "admin"
+
+    @property
+    def est_auteur(self):
+        return self.role in ('auteur','admin')
+
     def __repr__(self):
         return f"<User {self.nom_complet}>"
+
+@login_manager.user_loader
+def charger_user(id):
+    return db.session.get(User, int(id))

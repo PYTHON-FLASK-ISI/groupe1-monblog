@@ -1,12 +1,29 @@
 {% extends "base.html" %}
 {% block titre %}
-	Détail
+	{{ article.titre }} -- Mon Blog
 {% endblock %}
 
 {% block contenu %}
     <article class="carte">
     <h1><strong>Titre : </strong>{{ article.titre }}</h1>
 	<p><strong>Contenu : </strong>{{ article.contenu }}</p>
-    <small><strong>Auteur : </strong>{{ article.auteur.nom_complet }}</small>
+    <small><strong>Auteur : </strong>{{ article.auteur.nom_complet }} -- {{ article.cree_le.strftime('%d/%m/%Y') }}</small>
     </article>
+
+    <section>
+    <h2>Commentaires ({{ article.commentaires | length }})</h2>
+
+    {% for c in article.commentaires %}
+    <div class="carte">
+        <p>{{ c.contenu }}</p>
+        <small>par <strong>{{ c.auteur.nom_complet }}</strong> le {{ c.cree_le.strftime('%d/%m/%Y') }}</small>
+    </div>
+    {% else %}
+    <p>Aucun commentaire</p>
+    {% endfor %}
+    </section>
+
+
+    <button class="btn"><a href="{{ url_for('articles.modifier',id=article.id) }}"> Modifier cet article</a></button>
+    <button class="btn"><a href="{{ url_for('articles.article') }}"> Retour à la liste</a></button>
 {% endblock %}

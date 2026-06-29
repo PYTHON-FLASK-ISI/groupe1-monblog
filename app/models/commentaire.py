@@ -18,7 +18,7 @@ class Commentaire(BaseModel):
     auteur_id = db.Column(db.Integer, db.ForeignKey('blog.users.id'), nullable=False)
 
     auteur = db.relationship('User')
-    article = db.relationship('Article', back_populates='commentaires')
+    #article = db.relationship('Article', back_populates='commentaires')
 
     def valider(self):
         if not self.contenu or not self.contenu.strip():
